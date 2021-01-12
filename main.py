@@ -30,9 +30,24 @@ def play_game():
 
 
 def handle_turn(player):
+
+    print(player + "'s turn")
     position = input("Choose from 1-9: ")
-    position = int(position) - 1
-    board[position] = "X"
+
+    valid = False
+    while not valid:
+
+        while position not in ["1", "2", "3", "4", "5", "6", "7", "8", "9"]:
+            position = input("Invalid input! Choose from 1-9: ")
+
+        position = int(position) - 1
+
+        if board[position] == "-":
+            valid = True
+        else:
+            print("Invalid, already finished")
+
+    board[position] = player
     dis_board()
 
 
@@ -119,10 +134,21 @@ def check_diagonals():
 
 
 def check_if_tie():
+    global game_on
+
+    if "-" not in board:
+        game_on = False
+
     return
 
 
 def flip_player():
+    global current_player
+
+    if current_player == "X":
+        current_player = "O"
+    elif current_player == "O":
+        current_player = "X"
     return
 
 
